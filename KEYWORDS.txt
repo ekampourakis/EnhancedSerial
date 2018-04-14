@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+EnhancedSerial	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+Init	KEYWORD2
+IsConnected	KEYWORD2
+TryConnect	KEYWORD2
+WaitConnect	KEYWORD2
+SetPingMessage	KEYWORD2
+SetTimeout	KEYWORD2
+GetBaud	KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+#######################################
+#KEY_NONE	LITERAL1

@@ -1,6 +1,7 @@
 ' ******* Usage *******
 ' 
 ' When main form loads
+'
 ' ' SerialPort1 is the serial port component used in the program
 ' ' COM7 is the port the Arduino is connected to
 ' InitSerial(SerialPort1, "COM7")
@@ -11,7 +12,11 @@
 ' ' {255, 255} is the default ping message used and can be changed from the Arduino code calling SetPingMessage
 ' ' 115200 is the required baud rate. Change it to any baud rate supported
 ' ConnectSerial(SerialPort1, 13, {255, 255}, 115200)
-
+'
+' If you want to change baud rate
+'
+' EndSerial(SerialPort1)
+' ConnectSerial(SerialPort1, 13, {255, 255}, NewBaudRate)
 
 Private Function BaudToCode(ByVal Baud As Integer) As Byte
 	Select Case Baud

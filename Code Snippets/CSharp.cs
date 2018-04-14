@@ -1,6 +1,7 @@
 // ******* Usage *******
 // 
 // When main form loads
+//
 // // serialPort1 is the serial port component used in the program
 // // COM7 is the port the Arduino is connected to
 // InitSerial(ref serialPort1, "COM7");
@@ -11,6 +12,12 @@
 // // 13 is the device ID used in the sample sketch and can be changed from the Arduino code
 // // 115200 is the required baud rate. Change it to any baud rate supported
 // ConnectSerial(ref serialPort1, 13, Ping, 115200);
+//
+// If you want to change baud rate
+//
+// EndSerial(ref serialPort1);
+// byte[] Ping = { 255, 255 };
+// ConnectSerial(ref serialPort1, 13, Ping, NewBaudRate);
 
 private byte BaudToCode(int Baud) {
 	switch (Baud) {

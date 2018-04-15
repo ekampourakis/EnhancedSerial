@@ -13,11 +13,9 @@
 // // 115200 is the required baud rate. Change it to any baud rate supported
 // ConnectSerial(ref serialPort1, 13, Ping, 115200);
 //
-// If you want to change baud rate
-//
-// EndSerial(ref serialPort1);
+// In order to auto connect instead of calling ConnectSerial, call AutoConnect
 // byte[] Ping = { 255, 255 };
-// ConnectSerial(ref serialPort1, 13, Ping, NewBaudRate);
+// AutoConnect(ref serialPort1, 13, Ping, 115200)
 
 private byte BaudToCode(int Baud) {
 	switch (Baud) {
@@ -56,7 +54,12 @@ private byte BaudToCode(int Baud) {
 bool ConnectionStatus = false;
 
 private void InitSerial(ref System.IO.Ports.SerialPort EnhancedPort, string COMPort) {
+	ConnectionStatus = false;
+	if (EnhancedPort.IsOpen) {
+		EndSerial(ref EnhancedPort);
+	}
 	EnhancedPort.DtrEnable = true;
+	EnhancedPort.ReadTimeout = 2000;
 	EnhancedPort.BaudRate = 9600;
 	EnhancedPort.PortName = COMPort;
 	EnhancedPort.Open();
@@ -65,18 +68,34 @@ private void InitSerial(ref System.IO.Ports.SerialPort EnhancedPort, string COMP
 	}
 }
 
+private bool AutoConnect(ref System.IO.Ports.SerialPort EnhancedPort, byte DeviceID, byte[] PingMessage, int BaudRate = 9600) {
+	foreach (string Port in System.IO.Ports.SerialPort.GetPortNames()) {
+		try {
+			InitSerial(ref EnhancedPort, Port);
+			System.Threading.Thread.Sleep(2000);
+			ConnectSerial(ref EnhancedPort, DeviceID, PingMessage, BaudRate);
+			if (ConnectionStatus) {
+				return true;
+			}
+		} catch { }
+	}
+	return false;
+}
+
 private void ConnectSerial(ref System.IO.Ports.SerialPort EnhancedPort, byte DeviceID, byte[] PingMessage, int BaudRate = 9600) {
 	EnhancedPort.Write(PingMessage, 0, 2);
 	byte ReceivedID = Convert.ToByte(EnhancedPort.ReadByte());
-	System.Threading.Thread.Sleep(200);
 	if ((ReceivedID == DeviceID)) {
+		System.Threading.Thread.Sleep(500);
 		byte[] BaudCode = { BaudToCode(BaudRate) };
 		EnhancedPort.Write(BaudCode, 0, 1);
 		EnhancedPort.BaudRate = BaudRate;
+		EnhancedPort.ReadTimeout = 500;
 		ConnectionStatus = true;
 	}
 }
 
 private void EndSerial(ref System.IO.Ports.SerialPort EnhancedPort) {
 	EnhancedPort.Close();
+	ConnectionStatus = false;
 }

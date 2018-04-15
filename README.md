@@ -15,8 +15,9 @@ Inside the 'Code Snippets' folder you will find all required code files to imple
 * C#
 
 ## Current Functionality
-* Automatic Baud Rate configuration
-* Asynchronous and Blocking connection
+* Automatic search and connect of the correct serial port
+* Automatic baud rate configuration
+* Asynchronous or blocking Arduino connection code 
 
 ## Contributing
 Feel free to contribute your ideas and code snippets for unsupported languages. <br />

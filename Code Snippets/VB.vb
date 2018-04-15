@@ -13,10 +13,8 @@
 ' ' 115200 is the required baud rate. Change it to any baud rate supported
 ' ConnectSerial(SerialPort1, 13, {255, 255}, 115200)
 '
-' If you want to change baud rate
-'
-' EndSerial(SerialPort1)
-' ConnectSerial(SerialPort1, 13, {255, 255}, NewBaudRate)
+' In order to auto connect instead of calling ConnectSerial, call AutoConnect
+' AutoConnect(SerialPort1, 13, {255, 255}, 115200)
 
 Private Function BaudToCode(ByVal Baud As Integer) As Byte
 	Select Case Baud
@@ -55,26 +53,48 @@ End Function
 Dim ConnectionStatus As Boolean = False
 
 Private Sub InitSerial(ByRef EnhancedPort As IO.Ports.SerialPort, ByVal COMPort As String)
+	ConnectionStatus = False
+	If EnhancedPort.IsOpen() Then
+		EndSerial(EnhancedPort)
+	End If
 	EnhancedPort.DtrEnable = True
+	EnhancedPort.ReadTimeout = 2000
 	EnhancedPort.BaudRate = 9600
-	EnhancedPort.PortName = COMPort
+	EnhancedPort.PortName = COMPort	
 	EnhancedPort.Open()
 	While EnhancedPort.BytesToRead > 0
 		EnhancedPort.ReadByte()
 	End While
 End Sub
 
+Private Function AutoConnect(ByRef EnhancedPort As IO.Ports.SerialPort, ByVal DeviceID As Byte, ByVal PingMessage As Byte(), ByVal Optional BaudRate As Integer = 9600) As Boolean
+	For Each Port As String In IO.Ports.SerialPort.GetPortNames()
+		Try
+			InitSerial(EnhancedPort, Port)
+			Threading.Thread.Sleep(2000)
+			ConnectSerial(EnhancedPort, DeviceID, PingMessage, BaudRate)
+			If ConnectionStatus Then
+				Return True
+			End If
+		Catch Exception As Exception
+		End Try
+	Next
+	Return False
+End Function
+
 Private Sub ConnectSerial(ByRef EnhancedPort As IO.Ports.SerialPort, ByVal DeviceID As Byte, ByVal PingMessage As Byte(), ByVal Optional BaudRate As Integer = 9600)
 	EnhancedPort.Write(PingMessage, 0, 2)
 	Dim ReceivedID As Byte = EnhancedPort.ReadByte()
-	Threading.Thread.Sleep(200)
 	If ReceivedID = DeviceID Then
+		Threading.Thread.Sleep(500)
 		EnhancedPort.Write({BaudToCode(BaudRate)}, 0, 1)
 		EnhancedPort.BaudRate = BaudRate
+		EnhancedPort.ReadTimeout = 500
 		ConnectionStatus = True
 	End If
 End Sub
 
 Private Sub EndSerial(ByRef EnhancedPort As IO.Ports.SerialPort)
 	EnhancedPort.Close()
+	ConnectionStatus = False
 End Sub

@@ -1,5 +1,5 @@
 # EnhancedSerial
-An enhancement library for the Arduino Serial that lets your 3rd party applications written in VB.NET and C# automatically find and connect to your Arduino through the serial interface. 
+An enhancement library for the Arduino Serial that lets your 3rd party applications automatically find and connect to your Arduino through the serial interface. 
 
 ## Getting Started
 
@@ -13,6 +13,7 @@ Inside the 'Code Snippets' folder you will find all required code files to imple
 ## Supported Languages
 * VB.NET
 * C#
+* Python
 
 ## Current Functionality
 * Automatic search and connect of the correct serial port

@@ -76,7 +76,7 @@ long EnhancedSerial::BaudFromSerial(byte BaudCode) {
 
 long EnhancedSerial::GetBaud() { return CurrentBaud; }
 
-bool EnhancedSerial::Pinged() { return (RX[1] == PingBytes[0] && RX[0] == PingBytes[1]); }
+bool EnhancedSerial::Pinged() { return (RX[0] == PingBytes[0] && RX[1] == PingBytes[1]); }
 
 void EnhancedSerial::FlushAll() {
 	Serial.flush();

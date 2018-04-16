@@ -7,6 +7,9 @@ void setup() {
   // Initialize ES with the default unique ID
   ES.Init(13);
   
+  // Change the unique ping message (default is 255 and 255)
+  ES.SetPingMessage(0, 255);
+  
 }
 
 void loop() {

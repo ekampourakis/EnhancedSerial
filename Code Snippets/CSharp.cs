@@ -8,14 +8,15 @@
 //
 // On connect button click
 //
-// byte[] Ping = { 255, 255 }; // is the default ping message used and can be changed from the Arduino code calling SetPingMessage
+// byte[] Ping = { 0, 255 }; // is the ping message used in the examples and can be changed from the Arduino code calling SetPingMessage
 // // 13 is the device ID used in the sample sketch and can be changed from the Arduino code
 // // 115200 is the required baud rate. Change it to any baud rate supported
 // ConnectSerial(ref serialPort1, 13, Ping, 115200);
 //
 // In order to auto connect instead of calling ConnectSerial, call AutoConnect
-// byte[] Ping = { 255, 255 };
+// byte[] Ping = { 0, 255 };
 // AutoConnect(ref serialPort1, 13, Ping, 115200)
+// Notice that AutoConnect returns true if the connection is successfully established
 
 private byte BaudToCode(int Baud) {
 	switch (Baud) {

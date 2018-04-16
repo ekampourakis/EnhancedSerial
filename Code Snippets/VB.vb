@@ -9,12 +9,13 @@
 ' On connect button click
 '
 ' ' 13 is the device ID used in the sample sketch and can be changed from the Arduino code
-' ' {255, 255} is the default ping message used and can be changed from the Arduino code calling SetPingMessage
+' ' {0, 255} is the ping message used in the examples and can be changed from the Arduino code calling SetPingMessage
 ' ' 115200 is the required baud rate. Change it to any baud rate supported
-' ConnectSerial(SerialPort1, 13, {255, 255}, 115200)
+' ConnectSerial(SerialPort1, 13, {0, 255}, 115200)
 '
 ' In order to auto connect instead of calling ConnectSerial, call AutoConnect
-' AutoConnect(SerialPort1, 13, {255, 255}, 115200)
+' AutoConnect(SerialPort1, 13, {0, 255}, 115200)
+' Notice that AutoConnect returns True if the connection is successfully established
 
 Private Function BaudToCode(ByVal Baud As Integer) As Byte
 	Select Case Baud

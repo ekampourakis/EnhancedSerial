@@ -7,6 +7,9 @@ An enhancement library for the Arduino Serial that lets your 3rd party applicati
 Download a .zip copy of the library and install it using this guide: https://www.arduino.cc/en/Guide/Libraries. <br />
 Inside the 'examples' folder you will find everything you need to know. The usage of the EnhancedSerial library is as simple as that.
 
+### Arduino Sketch
+Go inside the 'examples' folder and upload one of the provided example sketches to the Arduino
+
 ### Application Implementation
 Inside the 'Code Snippets' folder you will find all required code files to implement the library in your applications.
 

@@ -18,9 +18,11 @@ class EnhancedSerial {
 		void Init(byte ID);
 		void Init(byte ID, byte LEDPin);
 		bool IsConnected();
+		int PingReceived();
+		void PingBack();
 		void SetPingMessage(byte One, byte Two);
 		void SetTimeout(long Milliseconds);
-		bool TryConnect();
+		void TryConnect();
 		void WaitConnect();
 		long GetBaud();
 		

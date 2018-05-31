@@ -83,6 +83,24 @@ void EnhancedSerial::FlushAll() {
 	while (Serial.available()) { Serial.read(); }
 }
 
+int EnhancedSerial::PingReceived() {
+	if (Serial.available()) {
+		RX[0] = RX[1];
+		int ReceivedByte = Serial.read();
+		if (ReceivedByte == -1) {
+			return -2;
+		}
+		RX[1] = Serial.read();
+		return Pinged() ? -1 : RX[1];
+	} 
+	return -2;
+}
+
+void EnhancedSerial::PingBack() {
+	Serial.write(PingBytes, 2);
+	Serial.flush();
+}
+
 // Add timeout
 void EnhancedSerial::PingRead() {
 	if (Serial.available()) {
@@ -109,11 +127,10 @@ void EnhancedSerial::PingRead() {
 	}
 }
 
-bool EnhancedSerial::TryConnect() {
+void EnhancedSerial::TryConnect() {
 	if (!Status) {
 		PingRead();
 	}
-	return false;
 }
 
 void EnhancedSerial::WaitConnect() {

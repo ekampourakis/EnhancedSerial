@@ -13,6 +13,8 @@ EnhancedSerial	KEYWORD1
 #######################################
 Init	KEYWORD2
 IsConnected	KEYWORD2
+PingReceived	KEYWORD2
+PingBack	KEYWORD2
 TryConnect	KEYWORD2
 WaitConnect	KEYWORD2
 SetPingMessage	KEYWORD2

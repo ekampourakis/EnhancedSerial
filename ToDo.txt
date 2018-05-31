@@ -1,0 +1,1 @@
+*Add ping function to check for open connection that won't disturb the data flow

@@ -15,7 +15,11 @@ long CurrentBaud = 9600;
 
 void EnhancedSerial::Init(byte ID) {
 	DeviceID = ID;
-	Serial.begin(9600);
+	CurrentBaud = 9600;
+	RX[0] = 0x00;
+	RX[1] = 0x00;
+	Status = false;
+	Serial.begin(CurrentBaud);
 }
 
 void EnhancedSerial::Init(byte ID, byte LEDPin) {
